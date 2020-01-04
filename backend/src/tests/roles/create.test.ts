@@ -1,8 +1,10 @@
-const createRoleService = require("@services/user-roles/create");
+const createRoleService = require("../../services/user-roles/create");
 
 describe("create user role", () => {
   test("list", async () => {
-    const result = await createRoleService("test");
+    console.log(createRoleService);
+    const result = await createRoleService.default("test");
+    console.log(result);
     expect(result.name).toEqual("test");
   });
 });
