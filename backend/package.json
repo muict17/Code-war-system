@@ -28,18 +28,11 @@
     "fastify-static": "^2.5.1",
     "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
-    "module-alias": "^2.2.2",
     "node-postgres-named": "^2.4.1",
     "pg": "^7.17.0",
     "pino-pretty": "^3.5.0",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
-  },
-  "_moduleAliases": {
-    "@db": "dist/db.ts",
-    "@services": "dist/services",
-    "@jwt": "dist/jwt.ts",
-    "@interfaces/*": "dist/interfaces/*"
   }
 }
