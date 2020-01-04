@@ -1,2 +1,5 @@
 import db from "@db";
-db.query("SELECT VERSION()");
+import jwt from "@jwt";
+import { LoginInfo, Response } from "./interface";
+const checkUsername = "SELECT username,student_id,password";
+export default (loginInfo: LoginInfo): Response => {};

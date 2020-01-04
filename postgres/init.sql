@@ -20,7 +20,7 @@ CREATE TABLE user_classes(
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
   role_id INT NOT NULL,
-  class_id INT NOT NULL,
+  class_id INT DEFAULT NULL,
   token_auth VARCHAR(32) NOT NULL,
   student_id INTEGER NOT NULL,
   username VARCHAR(64) NOT NULL,
