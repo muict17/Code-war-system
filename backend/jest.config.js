@@ -2,6 +2,7 @@ module.exports = {
   // rootDir: "tests",
   // testMatch: ["**/__tests__/**/*.test.(ts|tsx|js|jsx)"],
   // preset: "@babel/preset-env",
+  setupFilesAfterEnv: ["<rootDir>/src/tests/setUp-teardown.ts"],
   verbose: false,
   clearMocks: true,
   resetModules: true,
@@ -21,7 +22,7 @@ module.exports = {
   globals: {
     "ts-jest": {
       tsConfig: "tsconfig.json",
-      enableTsDiagnostics: true
+      diagnostics: true
     }
   },
   moduleNameMapper: {
