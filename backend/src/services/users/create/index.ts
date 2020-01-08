@@ -43,6 +43,7 @@ export default async (user: UserData): Promise<UserInfo> => {
       username,
       hashPassword
     ]);
+    connection.release(true);
     return mapToCamelCase(userResult.rows[0]);
   }
 
