@@ -1,0 +1,48 @@
+version: "3"
+services:
+  # frontend:
+  #   build: ./frontend
+  #   container_name: "code-war-frontend"
+  #   volumes:
+  #     - ./frontend:/app
+  #   ports:
+  #     - "8080:8080"
+  api:
+    build: ../../backend
+    container_name: "code-war-api"
+    # restart: always
+    volumes:
+      - ./backend:/usr/src/service
+      - ./backend/images:/usr/src/service/images
+    working_dir: /usr/src/service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      WAIT_HOSTS: db:5432
+  nginx:
+    container_name: nginx
+    restart: always
+    image: nginx
+    ports:
+      - "80:80"
+      #- "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/codewar.access.log:/etc/nginx/log/codewar.access.log
+    depends_on:
+      # - frontend
+      - api
+  db:
+    build: ../../postgres
+    container_name: "code-war-db"
+    # restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=vG8NeGHf92aV6yQCXHYuCUYuZGGX3KWXDHUx
+      - POSTGRES_USER=codewar
+      - POSTGRES_DB=codewar
