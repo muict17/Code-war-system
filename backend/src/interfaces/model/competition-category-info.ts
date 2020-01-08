@@ -1,5 +1,5 @@
 export interface CompetitionCategoryInfo {
-  categoryId: string;
+  categoryId: number;
   name: string;
   description: string;
   createAt: Date;
