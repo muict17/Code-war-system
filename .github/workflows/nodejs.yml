@@ -22,4 +22,5 @@ jobs:
         run: docker ps -a
 
       - name: unit testing api
-        run: docker exec code-war-api npm run test
+        # run: docker exec code-war-api npm run test
+        run: docker exec code-war-api ls -lah && cat .env
