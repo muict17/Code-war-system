@@ -1,6 +1,6 @@
 import db from "../../../db";
 import { CompetitionInfo } from "../../../interfaces/model/competitions-info";
-import transformToCompetitionInfo from "./utils";
+import transformToCompetitionInfo from "./transform";
 
 const getCompetitionByIdSql = `
   SELECT
