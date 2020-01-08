@@ -21,12 +21,15 @@ RUN chmod -R 775 /usr/src/service
 
 RUN npm install nodemon -g
 
+# RUN npm install -g jest
+
 RUN npm install
 
 EXPOSE 3030
 
 # CMD ["npm","run","dev"]
 CMD ["npm","run","dev"]
+CMD tail -f /dev/null
 # CMD /wait && npm run dev
 # CMD /wait && npm run start
 # CMD ["npm","run","start"]
