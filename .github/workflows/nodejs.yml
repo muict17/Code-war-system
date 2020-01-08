@@ -23,7 +23,8 @@ jobs:
 
       - name: unit testing api
         run: docker exec code-war-api npm run test
-        env: DB_USER=codewar
+        env: 
+	  DB_USER=codewar
           DB_HOST=db
           DB_NAME=codewar
           DB_PASS=vG8NeGHf92aV6yQCXHYuCUYuZGGX3KWXDHUx
