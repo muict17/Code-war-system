@@ -1,4 +1,4 @@
-export default (object: Object, pattern: string) => {
+export default (object: Object, pattern: string): any => {
   return Object.keys(object)
     .filter(key => {
       return key.search(pattern) !== -1;

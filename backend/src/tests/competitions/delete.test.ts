@@ -1,7 +1,7 @@
 import createCompetitionService from "../../services/competitions/create";
 import deleteCompetitionService from "../../services/competitions/delete";
 
-test("create new category", async () => {
+test("delete category", async () => {
   const createdResult = await createCompetitionService({
     categoryId: 1,
     name: "test competition",
