@@ -21,7 +21,7 @@ RUN chmod -R 775 /usr/src/service
 
 RUN npm install nodemon -g
 
-RUN npm install -g jest
+# RUN npm install -g jest
 
 RUN npm install
 
