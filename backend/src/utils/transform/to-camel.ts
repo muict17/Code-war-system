@@ -6,7 +6,7 @@ const toCamelCase = (str: string) =>
       .replace("_", "")
   );
 
-export default (arr: any | any[]): any =>
+export default (arr: any): any =>
   Object.entries(arr)
     .map(([key, value]) => {
       return { [toCamelCase(key)]: value };
