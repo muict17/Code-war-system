@@ -1,7 +1,6 @@
 import db from "../../../db";
 import { CompetitionInfo } from "../../../interfaces/model/competitions-info";
-import mapToCamelCase from "../../../utils/transform/to-camel";
-import renameKey from "../../../utils/transform/rename-key-pattern";
+import transformToCompetitionInfo from "./utils";
 
 const getCompetitionByIdSql = `
   SELECT
@@ -31,16 +30,7 @@ export default async (competitionId: number): Promise<CompetitionInfo> => {
 
   const isFounded = result.rows.length !== 0;
   if (isFounded) {
-    const categoryInfo = mapToCamelCase(
-      renameKey(result.rows[0], "competition_category_")
-    );
-    const competitionInfo = mapToCamelCase(
-      renameKey(result.rows[0], "competitions_")
-    );
-    return {
-      categoryInfo,
-      ...competitionInfo
-    };
+    return transformToCompetitionInfo(result.rows[0]);
   }
   throw new Error("competition id not found");
 };
