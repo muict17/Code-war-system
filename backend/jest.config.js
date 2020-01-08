@@ -4,6 +4,7 @@ module.exports = {
   // preset: "@babel/preset-env",
   testEnvironment: "node",
   setupFilesAfterEnv: ["<rootDir>/src/tests/setUp-teardown.ts"],
+  setupFiles: ["<rootDir>/src/tests/setup-dotenv.ts"],
   verbose: false,
   clearMocks: true,
   resetModules: true,
