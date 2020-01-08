@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import debounce from "lodash.debounce";
+import debounce from 'lodash.debounce';
 
 export default {
   data: function() {
     return {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     };
   },
   methods: {
@@ -32,8 +32,8 @@ export default {
     }, 500),
     setPassword: debounce(function(e) {
       this.password = e.target.value;
-    }, 500)
-  }
+    }, 500),
+  },
 };
 </script>
 
