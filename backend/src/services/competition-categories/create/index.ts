@@ -15,5 +15,6 @@ export default async (
     name,
     description
   ]);
+  connection.release(true);
   return mapToCamelCase(createdResult.rows[0]);
 };
