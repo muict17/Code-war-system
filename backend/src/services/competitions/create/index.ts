@@ -25,5 +25,6 @@ export default async (
     new Date(startDate),
     new Date(endDate)
   ]);
+  connection.release(true);
   return mapToCamelCase(createdResult.rows[0]);
 };
