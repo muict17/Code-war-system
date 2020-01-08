@@ -7,7 +7,7 @@
     "dev": "nodemon -L --exec 'ts-node' src/index.ts",
     "build": " rm -rf dist && tsc",
     "start": "node dist",
-    "test": "jest --detectOpenHandles --forceExit"
+    "test": "jest --detectOpenHandles --forceExit --setupFiles dotenv/config"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./tests/setUp-teardown.ts"
