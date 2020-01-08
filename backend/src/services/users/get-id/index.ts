@@ -24,5 +24,8 @@ export default async (userId: number): Promise<UserInfo> => {
   const connection = await db.connect();
   const result: QueryResult = await connection.query(getUserByIdSql, [userId]);
   connection.release(true);
-  return mapToCamelCase(result.rows[0]);
+  if (result.rows.length !== 0) {
+    return mapToCamelCase(result.rows[0]);
+  }
+  throw new Error("user id not found");
 };

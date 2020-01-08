@@ -31,7 +31,6 @@ export default async (user: UserData): Promise<UserInfo> => {
     studentId
   ]);
   const isUserExist = checkUsername.rows.length !== 0;
-
   if (!isUserExist) {
     const passwordSalt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, passwordSalt);
@@ -46,6 +45,5 @@ export default async (user: UserData): Promise<UserInfo> => {
     connection.release(true);
     return mapToCamelCase(userResult.rows[0]);
   }
-
-  return null;
+  throw new Error("conflict username");
 };

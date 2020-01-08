@@ -30,5 +30,5 @@ export default async (userData: UserData): Promise<UserInfo> => {
     return mapToCamelCase(updatedResult.rows[0]);
   }
 
-  return null;
+  throw new Error("user id not found");
 };

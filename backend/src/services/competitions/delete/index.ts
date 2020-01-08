@@ -1,11 +1,12 @@
 import db from "../../../db";
 import { DeleteData } from "../../../interfaces/http/delete-data";
-const deleteSql = "DELETE FROM roles WHERE role_id = $1";
 
-export default async (roleId: number): Promise<DeleteData> => {
+const deletedSql = ` DELETE FROM competitions WHERE competition_id = $1`;
+
+export default async (competitionId: number): Promise<DeleteData> => {
   const connection = await db.connect();
-  const deletedResult = await connection.query(deleteSql, [roleId]);
-  connection.release(true);
+  const deletedResult = await connection.query(deletedSql, [competitionId]);
+
   const isDeleted = deletedResult.rowCount !== 0;
   if (isDeleted) {
     return {
@@ -13,5 +14,5 @@ export default async (roleId: number): Promise<DeleteData> => {
     };
   }
 
-  throw new Error("role id not found");
+  throw new Error("competition id not found");
 };
