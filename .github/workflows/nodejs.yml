@@ -11,6 +11,8 @@ jobs:
         node-version: [12.x]
 
     steps:
+      - name: list all files
+        run: ls -lah
       - name: docker compose build
         run: docker-compose up -d
 
