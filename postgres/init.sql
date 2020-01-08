@@ -108,3 +108,10 @@ ALTER TABLE public.competition_questions ADD FOREIGN KEY ("question_id") REFEREN
 ALTER TABLE public.competitions ADD FOREIGN KEY ("category_id") REFERENCES public.competition_category ("category_id");
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competitor_id") REFERENCES public.users ("user_id");
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions ("competition_id");
+
+-- CREATE INDEX
+CREATE INDEX index_user_token ON public.users(token_auth);
+
+-- mock DATA
+INSERT INTO public.roles(name) VALUES ('user');
+INSERT INTO public.user_classes(icon_url, name, min_score, max_score) VALUES ('', 'beginner', 0, 100);
