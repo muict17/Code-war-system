@@ -13,11 +13,16 @@ const updateRoleSql = `
 `;
 export default async (roleId: number, name: string): Promise<RoleInfo> => {
   const connection = await db.connect();
-  const updateResult: QueryResult<RoleInfo[]> = await connection.query(
+  const updatedResult: QueryResult<RoleInfo[]> = await connection.query(
     updateRoleSql,
     [name, new Date(), roleId]
   );
   connection.release(true);
 
-  return mapToCamelCase(updateResult.rows[0]);
+  const isUpdated = updatedResult.rows.length !== 0;
+  if (isUpdated) {
+    return mapToCamelCase(updatedResult.rows[0]);
+  }
+
+  throw new Error("role id not found");
 };
