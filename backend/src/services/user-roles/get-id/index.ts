@@ -19,5 +19,11 @@ export default async (roleId: number): Promise<RoleInfo> => {
   );
   connection.release(true);
 
-  return mapToCamelCase(result.rows[0]);
+  const isFound = result.rows.length !== 0;
+
+  if (isFound) {
+    return mapToCamelCase(result.rows[0]);
+  }
+
+  throw new Error("role id not found");
 };
