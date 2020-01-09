@@ -6,7 +6,7 @@ export default async (questionId: number, question: QuestionData) => {
   const exec = await model.updateById(questionId, question).execute();
 
   const isUpdated = exec.isAffectedRows();
-  const result = exec.getResult();
+  const result = exec.getPrettyResult();
   if (isUpdated) {
     return result[0];
   }
