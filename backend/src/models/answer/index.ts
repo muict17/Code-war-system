@@ -46,7 +46,7 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
 
   public updateById(answerId: number, answerData: AnswerData) {
     const { answer, isAnswer } = answerData;
-    const sql = `${baseUpdateSql} WHERE answer_id = %s`;
+    const sql = `${baseUpdateSql} WHERE answer_id = %s RETURNING *`;
     this.sql = format(sql, answer, isAnswer, new Date(), answerId);
     return this;
   }
