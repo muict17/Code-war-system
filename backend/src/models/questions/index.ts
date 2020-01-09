@@ -34,10 +34,16 @@ export default class QuestionModel {
 
   public getByQuery(query: QueryString) {
     if (query.name) {
-      const sql = `${baseSelectSql} WHERE name LIKE %L`;
-      this.sql = format(sql, query.name);
+      const sql = `${baseSelectSql} WHERE name LIKE %L LIMIT %s OFFSET %s`;
+      this.sql = format(
+        sql,
+        query.name,
+        Number(query.limit),
+        Number(query.offset)
+      );
+      return this;
     }
-    const sql = `${baseSelectSql} LIMIT %L OFFSET %L`;
+    const sql = `${baseSelectSql} LIMIT %s OFFSET %s`;
     this.sql = format(sql, Number(query.limit), Number(query.offset));
     return this;
   }
