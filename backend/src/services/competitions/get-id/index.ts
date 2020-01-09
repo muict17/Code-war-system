@@ -27,6 +27,7 @@ const getCompetitionByIdSql = `
 export default async (competitionId: number): Promise<CompetitionInfo> => {
   const connection = await db.connect();
   const result = await connection.query(getCompetitionByIdSql, [competitionId]);
+  connection.release(true);
 
   const isFounded = result.rows.length !== 0;
   if (isFounded) {

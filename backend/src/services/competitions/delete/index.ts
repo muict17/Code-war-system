@@ -6,6 +6,7 @@ const deletedSql = ` DELETE FROM competitions WHERE competition_id = $1`;
 export default async (competitionId: number): Promise<DeleteData> => {
   const connection = await db.connect();
   const deletedResult = await connection.query(deletedSql, [competitionId]);
+  connection.release(true);
 
   const isDeleted = deletedResult.rowCount !== 0;
   if (isDeleted) {
