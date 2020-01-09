@@ -69,7 +69,15 @@ export default class QuestionModel {
     return this;
   }
 
-  public getResult(): QuestionInfo[] {
+  public isAffectedRows(): boolean {
+    return this.rowCount !== 0;
+  }
+
+  public getRowCount() {
+    return this.rowCount;
+  }
+
+  public getResult() {
     return this.result;
   }
 }
