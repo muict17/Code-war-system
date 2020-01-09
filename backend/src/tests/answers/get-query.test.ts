@@ -15,6 +15,5 @@ test("list all without join", async () => {
     offset: 0,
     isJoin: true
   });
-  console.log(result);
   expect(result.length).toBeLessThanOrEqual(10);
 });
