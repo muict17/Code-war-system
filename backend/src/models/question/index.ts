@@ -46,19 +46,18 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     answers.is_answer  AS answers_is_answer,
     answers.create_at  AS answers_create_at,
     answers.update_at  AS answers_update_at
-    FROM questions
-    INNER JOIN answers ON questions.question_id = answers.question_id `;
+    FROM (SELECT * FROM questions LIMIT %s OFFSET %s) AS questions
+    LEFT JOIN answers ON questions.question_id = answers.question_id `;
     if (query.name) {
-      sql = `${sql} WHERE questions.name LIKE %L LIMIT %s OFFSET %s`;
+      sql = `${sql} WHERE questions.name LIKE %L`;
       this.sql = format(
         sql,
-        query.name,
         Number(query.limit),
-        Number(query.offset)
+        Number(query.offset),
+        query.name
       );
       return this;
     }
-    sql = `${sql} LIMIT %s OFFSET %s`;
     this.sql = format(sql, Number(query.limit), Number(query.offset));
     return this;
   }
