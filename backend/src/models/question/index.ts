@@ -1,9 +1,9 @@
 const format = require("pg-format");
 import {
   baseInsertSql,
-  baseSelectSql,
   baseUpdateSql,
-  baseDeleteSql
+  baseDeleteSql,
+  baseSelectJoinSql
 } from "./sql";
 import { QueryString, QuestionData } from "../../interfaces/inputData/question";
 import { QuestionInfo } from "../../interfaces/model/question-info";
@@ -22,14 +22,34 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
   }
 
   public getById(questionId: number) {
-    const sql = `${baseSelectSql} WHERE question_id = %s`;
+    const sql = `
+    ${baseSelectJoinSql},
+    answers.answer_id  AS answers_answer_id ,
+    answers.question_id  AS answers_question_id,
+    answers.answer  AS answers_answer,
+    answers.is_answer  AS answers_is_answer,
+    answers.create_at  AS answers_create_at,
+    answers.update_at  AS answers_update_at
+    FROM questions
+    INNER JOIN answers ON questions.question_id = answers.question_id
+    WHERE questions.question_id = %s`;
     this.sql = format(sql, Number(questionId));
     return this;
   }
 
   public getByQuery(query: QueryString) {
+    let sql = `
+    ${baseSelectJoinSql},
+    answers.answer_id  AS answers_answer_id ,
+    answers.question_id  AS answers_question_id,
+    answers.answer  AS answers_answer,
+    answers.is_answer  AS answers_is_answer,
+    answers.create_at  AS answers_create_at,
+    answers.update_at  AS answers_update_at
+    FROM questions
+    INNER JOIN answers ON questions.question_id = answers.question_id `;
     if (query.name) {
-      const sql = `${baseSelectSql} WHERE name LIKE %L LIMIT %s OFFSET %s`;
+      sql = `${sql} WHERE questions.name LIKE %L LIMIT %s OFFSET %s`;
       this.sql = format(
         sql,
         query.name,
@@ -38,7 +58,7 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
       );
       return this;
     }
-    const sql = `${baseSelectSql} LIMIT %s OFFSET %s`;
+    sql = `${sql} LIMIT %s OFFSET %s`;
     this.sql = format(sql, Number(query.limit), Number(query.offset));
     return this;
   }
