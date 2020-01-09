@@ -1,9 +1,7 @@
 import db from "../../../db";
 import jwt from "../../../jwt";
 import * as bcrypt from "bcrypt";
-
 import { LoginData, Response } from "./interface";
-const checkUsername = "SELECT username,student_id,password";
 
 const getUserSql = `
   SELECT
