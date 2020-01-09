@@ -38,7 +38,7 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
     return this;
   }
 
-  public getById(answerId: number) {
+  public getByIdWithoutJoin(answerId: number) {
     const sql = `${baseSelectSql} WHERE answer_id = %s`;
     this.sql = format(sql, answerId);
     return this;
@@ -48,6 +48,25 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
     const { answer, isAnswer } = answerData;
     const sql = `${baseUpdateSql} WHERE answer_id = %s RETURNING *`;
     this.sql = format(sql, answer, isAnswer, new Date(), answerId);
+    return this;
+  }
+
+  public getByQueryWithoutJoin(query: QueryString) {
+    const { questionName, limit, offset } = query;
+
+    if (query.questionName) {
+      const sql = `
+      ${baseSelectSql}
+      INNER JOIN questions ON questions.question_id = answers.answer_id
+      WHERE questions.name LIKE %L
+      LIMIT %s
+      OFFSET %s`;
+      this.sql = format(sql, questionName, limit, offset);
+      return this;
+    }
+
+    const sql = `${baseSelectSql} LIMIT %s OFFSET %s`;
+    this.sql = format(sql, limit, offset);
     return this;
   }
 
@@ -64,12 +83,14 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
       FROM answers
       INNER JOIN questions
         ON questions.question_id = answers.question_id`;
+
     if (questionName) {
       sql = `${sql} WHERE questions.name LIKE %L LIMIT %s OFFSET %s`;
       console.log(sql);
       this.sql = format(sql, questionName, limit, offset);
       return this;
     }
+
     sql = ` ${sql} LIMIT %s OFFSET %s`;
     this.sql = format(sql, limit, offset);
     return this;
