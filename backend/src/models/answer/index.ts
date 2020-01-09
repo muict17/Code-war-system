@@ -20,4 +20,15 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
     );
     return this;
   }
+
+  public insertMany(questionId: number, answerData: AnswerData[]) {
+    const dataQuery = answerData
+      .map(value => ({
+        questionId: questionId,
+        ...value
+      }))
+      .map(Object.values);
+    this.sql = format(`${baseInsertSql} VALUES %L RETURNING *`, dataQuery);
+    return this;
+  }
 }
