@@ -1,7 +1,7 @@
 import { CompetitionCategoryInfo } from "./competition-category-info";
 
 export interface CompetitionInfo {
-  categoryInfo: CompetitionCategoryInfo;
+  categoryInfo?: CompetitionCategoryInfo;
   competitionId: number;
   categoryId: number;
   name: string;
