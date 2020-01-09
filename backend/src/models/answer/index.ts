@@ -36,4 +36,10 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
     this.sql = format(sql, answerId);
     return this;
   }
+
+  public getById(answerId: number) {
+    const sql = `${baseSelectSql} WHERE answer_id = %s`;
+    this.sql = format(sql, answerId);
+    return this;
+  }
 }
