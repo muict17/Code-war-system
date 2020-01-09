@@ -7,14 +7,12 @@ import {
 } from "./sql";
 import { QueryString, QuestionData } from "../../interfaces/inputData/question";
 import { QuestionInfo } from "../../interfaces/model/question-info";
+import BaseDataBase from "../base-database-model";
 
 import db from "../../db";
 import mapToCamel from "../../utils/transform/to-camel";
 
-export default class QuestionModel {
-  result: QuestionInfo[];
-  sql: string;
-  rowCount: number;
+export default class QuestionModel extends BaseDataBase<QuestionInfo> {
   public insertOne(questionData: QuestionData) {
     const { name, description, score } = questionData;
     this.sql = format(
@@ -73,21 +71,5 @@ export default class QuestionModel {
     this.result = questionInfo.rows.map(mapToCamel);
     this.rowCount = questionInfo.rowCount;
     return this;
-  }
-
-  public isAffectedRows(): boolean {
-    return this.rowCount !== 0;
-  }
-
-  public isFoundRows(): boolean {
-    return this.result.length !== 0;
-  }
-
-  public getRowCount() {
-    return this.rowCount;
-  }
-
-  public getResult() {
-    return this.result;
   }
 }
