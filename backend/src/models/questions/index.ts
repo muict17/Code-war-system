@@ -9,9 +9,6 @@ import { QueryString, QuestionData } from "../../interfaces/inputData/question";
 import { QuestionInfo } from "../../interfaces/model/question-info";
 import BaseDataBase from "../base-database-model";
 
-import db from "../../db";
-import mapToCamel from "../../utils/transform/to-camel";
-
 export default class QuestionModel extends BaseDataBase<QuestionInfo> {
   public insertOne(questionData: QuestionData) {
     const { name, description, score } = questionData;
@@ -62,14 +59,6 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
   public deleteById(questionId: number) {
     const sql = `${baseDeleteSql} WHERE question_id = %s`;
     this.sql = format(sql, questionId);
-    return this;
-  }
-
-  public async execute() {
-    const connection = await db.connect();
-    const questionInfo = await connection.query(this.sql);
-    this.result = questionInfo.rows.map(mapToCamel);
-    this.rowCount = questionInfo.rowCount;
     return this;
   }
 }

@@ -3,8 +3,8 @@ export interface AnswerData {
   isAnswer: boolean;
 }
 
-export interface queryString {
+export interface QueryString {
   limit: number;
   offset: number;
-  questionName: string;
+  questionName?: string;
 }
