@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 
 require("dotenv").config();
 export default {
-  sign: (payload: Object) =>
+  sign: (payload: Object): Promise<string> =>
     new Promise((resolve, reject) => {
       jwt.sign(
         { exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, payload },

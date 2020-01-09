@@ -1,10 +1,13 @@
-export interface LoginInfo {
+export interface LoginData {
   username: string;
   password: string;
 }
 
+export interface LoginInfo {
+  user_id: string;
+  token_auth: string;
+  password: string;
+}
 export interface Response {
-  message: string;
-  httpCode: number;
   jwt: string | undefined;
 }
