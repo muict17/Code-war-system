@@ -17,6 +17,15 @@ export const baseInsertSql = `
   )
 `;
 
+export const baseSelectJoinSql = `
+SELECT
+  questions.question_id AS questions_question_id,
+  questions.name AS questions_name,
+  questions.description AS questions_description,
+  questions.score AS questions_score,
+  questions.create_at AS questions_create_at,
+  questions.update_at AS questions_update_at
+`;
 export const baseUpdateSql = `
   UPDATE questions
   SET
