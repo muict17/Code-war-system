@@ -20,7 +20,8 @@ export const baseInsertSql = `
 export const baseDeleteSql = ` DELETE FROM answers`;
 
 export const baseUpdateSql = `
-  UPDATE
+  UPDATE answers
+  SET
     answer = %L,
     is_answer = %L,
     update_at = %L
