@@ -2,16 +2,23 @@
 @import './components/input'
 @import './components/button-with-container'
 
-.login-container
+.register
   height: 100vh
+  max-height: 100%
   display: flex
   justify-content: center
   align-items: center
 
 form
   color: #acaeaf
-  background: #4e5154
   width: fit-content
-  box-sizing: border-box
-  padding: 20px 100px
-  border-radius: 20px
+
+.error
+  color: #f3747a
+  margin-bottom: 20px
+
+.is-error
+  border: 3px solid #f3747a !important
+
+  &:focus
+    outline: 5px auto -webkit-focus-ring-color
