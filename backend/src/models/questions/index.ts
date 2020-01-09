@@ -49,7 +49,7 @@ export default class QuestionModel {
   }
 
   public updateById(id: number, question: QuestionData) {
-    const sql = `${baseUpdateSql} WHERE question_id = %s`;
+    const sql = `${baseUpdateSql} WHERE question_id = %s RETURNING *`;
     this.sql = format(
       sql,
       question.name,

@@ -7,6 +7,6 @@ test("delete question by id", async () => {
     description: "w",
     score: 1
   });
-  const result = await deleteQuestionService(createdResult[0].questionId);
+  const result = await deleteQuestionService(createdResult.questionId);
   expect(result.rowCount).toEqual(1);
 });

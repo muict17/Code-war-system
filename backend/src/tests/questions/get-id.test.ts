@@ -6,6 +6,6 @@ test("get question by id", async () => {
     description: "w",
     score: 1
   });
-  const result = await getQuestionByIdService(createdResult[0].questionId);
+  const result = await getQuestionByIdService(createdResult.questionId);
   expect(result).not.toEqual(null);
 });
