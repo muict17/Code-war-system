@@ -61,7 +61,7 @@ export default async (query: QueryString): Promise<CompetitionInfo[]> => {
       limit,
       offset
     ]);
-    connection.release();
+    connection.release(true);
     return result.rows.map(transformToCompetitionInfo);
   }
 

@@ -4,7 +4,7 @@ import usernameGenerator from "../../utils/generator/code-pattern";
 describe("create user", () => {
   test("create new user", async () => {
     const randomUser = usernameGenerator("userxxxx");
-    const randomStudentNumer = String(Math.floor(Math.random() * 9999999999));
+    const randomStudentNumer = String(Math.floor(Math.random() * 1000000));
     const result = await createUserService({
       roleId: 1,
       username: randomUser,
