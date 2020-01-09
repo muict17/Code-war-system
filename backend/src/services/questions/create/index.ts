@@ -1,12 +1,9 @@
-import db from "../../../db";
-import createdSql from "../../../models/questions/insert/insert-one";
-import { QuestionInfo } from "../../../interfaces/model/question-info";
-import { QuestionData } from "./interfaces";
+import QuestionModel from "../../../models/questions";
+// import { QuestionInfo } from "../../../interfaces/model/question-info";
+import { QuestionData } from "../../../interfaces/inputData/question";
 
-export default async (question: QuestionData): Promise<QuestionInfo> => {
-  const transformToArray: any = Object.values(question);
-  const sqlQuery = createdSql(transformToArray);
-  const connection = await db.connect();
-  const result = await connection.query(sqlQuery);
-  return result.rows[0];
+export default async (question: QuestionData) => {
+  const model = new QuestionModel();
+  const exec = await model.insertOne(question).execute();
+  return exec.getResult();
 };
