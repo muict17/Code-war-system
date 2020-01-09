@@ -73,6 +73,10 @@ export default class QuestionModel {
     return this.rowCount !== 0;
   }
 
+  public isFoundRows(): boolean {
+    return this.result.length !== 0;
+  }
+
   public getRowCount() {
     return this.rowCount;
   }
