@@ -1,5 +1,4 @@
 const format = require("pg-format");
-import db from "../../db";
 import {
   baseSelectSql,
   baseInsertSql,
@@ -29,6 +28,12 @@ export default class AnswerModel extends BaseDatabase<AnswerInfo> {
       }))
       .map(Object.values);
     this.sql = format(`${baseInsertSql} VALUES %L RETURNING *`, dataQuery);
+    return this;
+  }
+
+  public deleteById(answerId: number) {
+    const sql = `${baseDeleteSql} WHERE answer_id = %s`;
+    this.sql = format(sql, answerId);
     return this;
   }
 }
