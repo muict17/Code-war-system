@@ -5,10 +5,8 @@ export default async (questionId: number, question: QuestionData) => {
   const model = new QuestionModel();
   const exec = await model.updateById(questionId, question).execute();
 
-  const isUpdated = exec.isAffectedRows();
-  const result = exec.getPrettyResult();
-  if (isUpdated) {
-    return result[0];
+  if (exec.isAffectedRows()) {
+    return exec.getPrettyResult()[0];
   }
 
   throw new Error("question id not found");

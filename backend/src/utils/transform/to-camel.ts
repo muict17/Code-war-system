@@ -13,4 +13,4 @@ export default (arr: any): any =>
     })
     .reduce((result, current) => {
       return Object.assign(result, current);
-    });
+    }, {});

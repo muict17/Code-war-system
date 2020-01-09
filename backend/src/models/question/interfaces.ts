@@ -2,6 +2,7 @@ export interface QueryString {
   limit: number;
   offset: number;
   name?: string;
+  isJoin?: boolean;
 }
 
 export interface QuestionData {
