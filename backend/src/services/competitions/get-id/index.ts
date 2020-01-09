@@ -1,6 +1,6 @@
 import db from "../../../db";
 import { CompetitionInfo } from "../../../interfaces/model/competitions-info";
-import transformToCompetitionInfo from "./transform";
+import transformToCompetitionInfo from "../shared-util/transform";
 
 const getCompetitionByIdSql = `
   SELECT
@@ -18,6 +18,7 @@ const getCompetitionByIdSql = `
     competitions.end_date AS competitions_end_date,
     competitions.create_at AS competitions_create_at,
     competitions.update_at AS competitions_update_at
+    
     FROM competitions
     INNER JOIN competition_category
       ON competition_category.category_id = competitions.category_id
@@ -27,6 +28,7 @@ const getCompetitionByIdSql = `
 export default async (competitionId: number): Promise<CompetitionInfo> => {
   const connection = await db.connect();
   const result = await connection.query(getCompetitionByIdSql, [competitionId]);
+  connection.release(true);
 
   const isFounded = result.rows.length !== 0;
   if (isFounded) {
