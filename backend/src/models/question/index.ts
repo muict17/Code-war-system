@@ -31,7 +31,7 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     answers.create_at  AS answers_create_at,
     answers.update_at  AS answers_update_at
     FROM questions
-    INNER JOIN answers ON questions.question_id = answers.question_id
+    LEFT JOIN answers ON questions.question_id = answers.question_id
     WHERE questions.question_id = %s`;
     this.sql = format(sql, Number(questionId));
     return this;

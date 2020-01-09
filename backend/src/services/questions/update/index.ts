@@ -1,4 +1,4 @@
-import QuestionModel from "../../../models/questions";
+import QuestionModel from "../../../models/question";
 import { QuestionData } from "../../../interfaces/inputData/question";
 
 export default async (questionId: number, question: QuestionData) => {
