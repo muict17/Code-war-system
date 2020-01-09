@@ -8,10 +8,6 @@ const server: fastify.FastifyInstance<
   ServerResponse
 > = fastify({ logger: { prettyPrint: true } });
 export default () => {
-  server.get("/ping", (request, reply) => {
-    console.log(reply.res);
-    reply.code(200).send({ pong: "it worked!" });
-  });
   routes.forEach((route: any) => {
     server.route(route);
   });

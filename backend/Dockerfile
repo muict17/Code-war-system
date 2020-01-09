@@ -29,7 +29,7 @@ EXPOSE 3030
 
 # CMD ["npm","run","dev"]
 CMD ["npm","run","dev"]
-CMD tail -f /dev/null
+# CMD tail -f /dev/null
 # CMD /wait && npm run dev
 # CMD /wait && npm run start
 # CMD ["npm","run","start"]

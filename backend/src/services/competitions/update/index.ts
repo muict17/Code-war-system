@@ -29,7 +29,7 @@ export default async (
     competitionId,
     new Date()
   ]);
-
+  connection.release(true);
   const isUpdated = updatedResult.rowCount !== 0;
   if (isUpdated) {
     return mapToCamelCase(updatedResult.rows[0]);
