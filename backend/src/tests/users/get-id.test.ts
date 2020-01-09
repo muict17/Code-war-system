@@ -4,7 +4,7 @@ import createUserService from "../../services/users/create";
 
 test("get user by id", async () => {
   const randomUser = usernameGenerator("userxxxx");
-  const randomStudentNumer = String(Math.floor(Math.random() * 100));
+  const randomStudentNumer = String(Math.floor(Math.random() * 1000000));
   const createdResult = await createUserService({
     roleId: 1,
     username: randomUser,
