@@ -116,5 +116,5 @@ CREATE INDEX index_user_token ON public.users(token_auth);
 -- mock DATA
 INSERT INTO public.roles("name") VALUES ('user');
 INSERT INTO public.user_classes("icon_url", "name", "min_score", "max_score") VALUES ('', 'beginner', 0, 100);
-INSERT INTO public.users ("user_id", "role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "create_at", "update_at") VALUES ('1', '1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '0', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095');
+INSERT INTO public.users ("role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "create_at", "update_at") VALUES ('1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '0', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095');
 INSERT INTO public.competition_category ("category_id", "name", "description", "create_at", "update_at") VALUES ('1', 'test category', 'test description', '2020-01-08 14:27:53.668228', '2020-01-08 14:27:53.668228');
