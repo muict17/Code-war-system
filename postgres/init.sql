@@ -111,6 +111,87 @@ ALTER TABLE public.competitions ADD FOREIGN KEY ("category_id") REFERENCES publi
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competitor_id") REFERENCES public.users ("user_id");
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions ("competition_id");
 
+
+-- TYPE
+
+-- for return data after user answer the question
+CREATE TYPE USER_ANSWERING AS (score INTEGER, is_correct BOOLEAN);
+
+-- Stored Function
+
+-- for user answer the question
+CREATE OR REPLACE FUNCTION answer_question (u_id INTEGER, q_id INTEGER, answer_value VARCHAR(32), comp_id INTEGER, file_url VARCHAR(255))
+			RETURNS user_answering
+			AS $$
+DECLARE
+	question_score INTEGER DEFAULT 0;
+	is_answer BOOLEAN DEFAULT NULL;
+	return_info USER_ANSWERING;
+BEGIN
+	-- check user has already answered
+	SELECT
+		check_user_answer_response (u_id,q_id,comp_id) INTO is_answer;
+	-- check answer
+	SELECT
+		questions.score INTO question_score
+	FROM
+		answers
+		INNER JOIN questions ON questions.question_id = answers.question_id
+	WHERE
+		answers.question_id = q_id
+		AND answers.answer = answer_value
+		AND answers.is_answer = TRUE;
+
+	-- check score of answer
+	IF question_score IS NOT NULL THEN
+		-- update score
+		UPDATE
+			users
+		SET
+			score = score + question_score
+		WHERE
+			users.user_id = u_id
+		RETURNING
+			users.score INTO return_info.score;
+     -- insert for user answering
+		INSERT INTO question_response (answerer_id, question_id, competition_id, is_correct, file_path_url)
+			VALUES(u_id, q_id, comp_id, TRUE, file_url);
+	 -- return correct flag;
+		SELECT TRUE INTO return_info.is_correct;
+		RETURN return_info;
+	END IF;
+	SELECT
+		score INTO return_info.score
+	FROM
+		users
+	WHERE
+		users.user_id = u_id;
+	-- insert for user answering
+		INSERT INTO question_response (answerer_id, question_id, competition_id, is_correct, file_path_url)
+			VALUES(u_id, q_id, comp_id, FALSE, file_url);
+	-- return incorrect flag;
+		SELECT FALSE INTO return_info.is_correct;
+	RETURN return_info;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+-- for check user answered this question or not
+CREATE OR REPLACE FUNCTION check_user_answer_response (u_id INTEGER, q_id INTEGER, comp_id INTEGER) RETURNS BOOLEAN
+AS $$
+DECLARE
+	response_id INTEGER DEFAULT NULL;
+BEGIN
+	SELECT question_response.q_response_id INTO response_id FROM question_response WHERE answerer_id = u_id AND question_id = q_id AND competition_id = comp_id;
+IF response_id IS NOT NULL THEN
+ RAISE EXCEPTION SQLSTATE '90001' USING MESSAGE = 'user answered this question';
+END IF;
+RETURN TRUE;
+END;
+$$
+LANGUAGE plpgsql;
+
 -- CREATE INDEX
 CREATE INDEX index_user_token ON public.users(token_auth);
 
