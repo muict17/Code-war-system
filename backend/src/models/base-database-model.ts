@@ -13,6 +13,7 @@ export default class BaseDataBase<T> {
   public async execute() {
     const connection = await this.db.connect();
     const questionInfo = await connection.query(this.sql);
+    connection.release();
     this.result = questionInfo.rows;
     this.rowCount = questionInfo.rowCount;
     return this;

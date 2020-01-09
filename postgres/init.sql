@@ -104,10 +104,10 @@ ALTER TABLE public.users ADD FOREIGN KEY ("role_id") REFERENCES public.roles("ro
 ALTER TABLE public.users ADD FOREIGN KEY ("class_id") REFERENCES public.user_classes("class_id");
 ALTER TABLE public.question_response ADD FOREIGN KEY ("question_id") REFERENCES public.questions("question_id");
 ALTER TABLE public.question_response ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions("competition_id");
-ALTER TABLE public.answers ADD FOREIGN KEY ("question_id") REFERENCES public.questions ("question_id");
-ALTER TABLE public.competition_questions ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions ("competition_id");
-ALTER TABLE public.competition_questions ADD FOREIGN KEY ("question_id") REFERENCES public.questions ("question_id");
-ALTER TABLE public.competitions ADD FOREIGN KEY ("category_id") REFERENCES public.competition_category ("category_id");
+ALTER TABLE public.answers ADD FOREIGN KEY ("question_id") REFERENCES public.questions ("question_id") ON DELETE CASCADE;
+ALTER TABLE public.competition_questions ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions ("competition_id") ON DELETE CASCADE;
+ALTER TABLE public.competition_questions ADD FOREIGN KEY ("question_id") REFERENCES public.questions ("question_id") ON DELETE CASCADE;
+ALTER TABLE public.competitions ADD FOREIGN KEY ("category_id") REFERENCES public.competition_category ("category_id") ON DELETE CASCADE;
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competitor_id") REFERENCES public.users ("user_id");
 ALTER TABLE public.competitors ADD FOREIGN KEY ("competition_id") REFERENCES public.competitions ("competition_id");
 
