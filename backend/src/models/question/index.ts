@@ -3,7 +3,8 @@ import {
   baseInsertSql,
   baseUpdateSql,
   baseDeleteSql,
-  baseSelectJoinSql
+  baseSelectJoinSql,
+  baseSelectSql
 } from "./sql";
 import { QueryString, QuestionData } from "../../interfaces/inputData/question";
 import { QuestionInfo } from "../../interfaces/model/question-info";
@@ -37,7 +38,24 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     return this;
   }
 
+  public getByIdWithoutJoin(questionId: number) {
+    const sql = `${baseSelectSql} WHERE question_id = $s`;
+    this.sql = format(sql, Number(questionId));
+    return this;
+  }
+  public getByQueryWithoutJoin(query: QueryString) {
+    const { name, limit, offset } = query;
+    if (query.name) {
+      const sql = `${baseSelectSql} WHERE name LIKE %L`;
+      this.sql = format(sql, name);
+    }
+    const sql = `${baseSelectSql} LIMIT %s OFFSET %s`;
+    this.sql = format(sql, Number(limit), Number(offset));
+
+    return this;
+  }
   public getByQuery(query: QueryString) {
+    const { name, limit, offset } = query;
     let sql = `
     ${baseSelectJoinSql},
     answers.answer_id  AS answers_answer_id ,
@@ -50,15 +68,10 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     LEFT JOIN answers ON questions.question_id = answers.question_id `;
     if (query.name) {
       sql = `${sql} WHERE questions.name LIKE %L`;
-      this.sql = format(
-        sql,
-        Number(query.limit),
-        Number(query.offset),
-        query.name
-      );
+      this.sql = format(sql, Number(limit), Number(offset), name);
       return this;
     }
-    this.sql = format(sql, Number(query.limit), Number(query.offset));
+    this.sql = format(sql, Number(limit), Number(offset));
     return this;
   }
 
