@@ -3,8 +3,7 @@ import QuestionModel from "../../../models/question";
 export default async (questionId: number) => {
   const model = new QuestionModel();
   const exec = await model.getById(questionId).execute();
-  console.log(exec.getPrettyResult());
-  const result = exec.getPrettyResult();
+  const result = exec.getResult();
   const isFounded = exec.isFoundRows();
   if (isFounded) {
     return result;

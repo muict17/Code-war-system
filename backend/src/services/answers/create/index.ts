@@ -7,8 +7,8 @@ export default async (
   const model = new AnswerModel();
   if (Array.isArray(answerData)) {
     const exec = await model.insertMany(questionId, answerData).execute();
-    return exec.getResult();
+    return exec.getPrettyResult();
   }
   const exec = await model.insertOne(questionId, answerData).execute();
-  return exec.getResult()[0];
+  return exec.getPrettyResult()[0];
 };
