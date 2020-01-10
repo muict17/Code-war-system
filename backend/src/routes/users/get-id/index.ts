@@ -6,7 +6,13 @@ export default {
   method: "GET",
   schema,
   preHandler: async (req: any, res: any, done: any) => {
-    await req.authorization.authenticate(req, res);
+    const isTokenValid = await req.authorization.authenticate(req, res);
+    if (isTokenValid) {
+      res.status(401).send({ message: "invalid token" });
+      done();
+      return;
+    }
+
     const isOwner = req.authorization.verifyOwner(
       req.userInfo,
       req.params.userId
