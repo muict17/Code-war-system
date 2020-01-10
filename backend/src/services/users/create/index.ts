@@ -48,5 +48,5 @@ export default async (user: UserData): Promise<UserInfo> => {
     connection.release(true);
     return mapToCamelCase(userResult.rows[0]);
   }
-  throw new Error("conflict username");
+  throw new Error("username or studentId already exists");
 };
