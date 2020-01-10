@@ -9,10 +9,8 @@ export default async (req, res) => {
     const checkToken: any = await jwt.verify(token);
     if (checkToken.isValid) {
       req.userInfo = checkToken.payload;
-      return;
+      return true;
     }
   }
-  res.status(401).send({
-    msg: "Unauthorization"
-  });
+  return false;
 };
