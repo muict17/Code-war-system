@@ -1,7 +1,7 @@
 import db from "../../../db";
 
 const verifyEmailSql =
-  "UPDATE users SET is_verified = true WHERE verify_token = $1";
+  "UPDATE users SET is_verified = true, verify_token = NULL WHERE verify_token = $1";
 
 export default async (verifyToken: string) => {
   const connection = await db.connect();

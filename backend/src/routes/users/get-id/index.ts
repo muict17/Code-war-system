@@ -5,27 +5,24 @@ export default {
   url: "/users/:userId",
   method: "GET",
   schema,
-  preHandler: async (req: any, res: any, done: any) => {
-    const isTokenValid = await req.authorization.authenticate(req, res);
-    if (isTokenValid) {
-      res.status(401).send({ message: "invalid token" });
-      done();
-      return;
-    }
-
-    const isOwner = req.authorization.verifyOwner(
-      req.userInfo,
-      req.params.userId
-    );
-
+  preHandler: async (req: any, res: any) => {
+    req.userInfo = await req.authorization.authenticate(req.headers);
+    const isTokenValid = req.userInfo.isValid;
+    const ownerKey = req.params.userId;
+    const isOwner = req.authorization.verifyOwner(req.userInfo, ownerKey);
     const isRole = req.authorization.verifyRole(req.userInfo, ["admin"]);
+
     if (isOwner || isRole) {
-      done();
       return;
     }
+
+    if (!isTokenValid) {
+      res.status(401).send({ message: "Unauthorization" });
+      return;
+    }
+
     res.status(403).send({ message: "Insufficient Permission" });
   },
-
   handler: async (req: any, res: any) => {
     try {
       const result = await getUserByIdService(req.params.userId);
