@@ -1,2 +1,4 @@
 import roleCreateRoute from "./roles/create";
-export default [roleCreateRoute];
+import userCreateRoute from "./users/create";
+
+export default [roleCreateRoute, userCreateRoute];
