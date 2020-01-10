@@ -13,7 +13,9 @@ export default {
       const userData = { roleId: 1, username, password, studentId };
       const result = await createUserService(userData);
       await sendVerifyEmailService(result.username, result.verifyToken);
-      req.logger.info(`registration: studenId = ${result.username}`);
+      req.logger.info(
+        `registration: email = ${result.username}, studentId = ${result.studentId}`
+      );
       res.status(200).send(result);
     } catch (e) {
       req.logger.error(e);
