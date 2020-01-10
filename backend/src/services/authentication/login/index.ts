@@ -7,9 +7,11 @@ const getUserSql = `
   SELECT
     user_id,
     token_auth,
-    password
+    password,
+    roles.name AS rolename
   FROM users
-  WHERE username = $1
+  INNER JOIN roles ON users.role_id = roles.role_id
+  WHERE users.username = $1
 `;
 export default async (loginInfo: LoginData): Promise<Response> => {
   const { username, password } = loginInfo;
@@ -25,7 +27,8 @@ export default async (loginInfo: LoginData): Promise<Response> => {
     if (verifyPassword) {
       const jwtToken = await jwt.sign({
         userId: userInfo.user_id,
-        tokenAuth: userInfo.token_auth
+        tokenAuth: userInfo.token_auth,
+        role: userInfo.rolename
       });
       return {
         jwt: jwtToken

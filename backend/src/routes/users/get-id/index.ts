@@ -11,6 +11,7 @@ export default {
       req.userInfo,
       req.params.userId
     );
+
     const isRole = req.authorization.verifyRole(req.userInfo, ["admin"]);
     if (isOwner || isRole) {
       done();
@@ -18,6 +19,7 @@ export default {
     }
     res.status(403).send({ message: "Insufficient Permission" });
   },
+
   handler: async (req: any, res: any) => {
     try {
       const result = await getUserByIdService(req.params.userId);

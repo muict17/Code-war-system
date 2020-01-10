@@ -9,6 +9,8 @@ import multer from "fastify-multer";
 import routes from "./routes";
 import logger from "./logger";
 import verifyOwner from "./utils/authorization";
+import createErrorResponse from "./utils/helpers/create-error-message";
+
 const server: fastify.FastifyInstance<
   Server,
   IncomingMessage,
@@ -24,6 +26,7 @@ export default () => {
   server.register(helmet, { hidePoweredBy: { setTo: "PHP 4.2.0" } });
   server.register(compress, { global: false });
   server.register(cors);
+  server.decorateRequest("createErrorResponse", createErrorResponse);
   server.decorateRequest("logger", logger);
   server.decorateRequest("authorization", verifyOwner);
   routes.forEach((route: any) => {
