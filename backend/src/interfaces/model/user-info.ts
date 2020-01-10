@@ -11,4 +11,5 @@ export interface UserInfo {
   score: number;
   createAt: Date;
   updateAt: Date;
+  verifyToken: string;
 }

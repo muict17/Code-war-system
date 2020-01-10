@@ -13,12 +13,12 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              indentedSyntax: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              indentedSyntax: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
   // plugin omitted
 };

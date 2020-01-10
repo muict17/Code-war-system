@@ -1,3 +1,7 @@
+@import './components/title'
+@import './components/input'
+@import './components/button-with-container'
+
 .login-container
   height: 100vh
   display: flex
@@ -11,40 +15,3 @@ form
   box-sizing: border-box
   padding: 20px 100px
   border-radius: 20px
-
-  & > h1
-    text-align: center
-    margin: 10px 0
-
-  & > div
-    display: flex
-    flex-flow: column
-
-    & > label
-      font-size: 1rem
-      margin-bottom: 10px
-
-    & > input
-      width: 400px
-      height: 35px
-      font-size: 0.9rem
-      border: none
-      background: #ACAEAF
-      border-radius: 20px
-      padding: 0 10px
-      margin-bottom: 20px
-
-      &:focus
-        outline: none
-
-  & > .button-container
-    width: 100%
-    & > button
-      color: #ACAEAF
-      background: transparent
-      font-size: 1rem
-      padding: 10px 30px
-      border: 3px solid #ACAEAF
-      border-radius: 20px
-      width: fit-content
-      margin: 10px auto

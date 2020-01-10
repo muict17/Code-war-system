@@ -6,12 +6,13 @@ const clearDatabase = async () => {
     "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'"
   );
   const deleteAll = listTables.rows.map(
-    async table => await connection.query(`DELETE FROM ${table}`)
+    async table => await connection.query(`DELETE FROM ${table.table_name} `)
   );
   const result = await Promise.all(deleteAll);
   console.log(result);
 };
 
-afterAll(() => {
-  // clearDatabase();
+afterAll(async () => {
+  // console.log("Clean up database");
+  // await clearDatabase();
 });

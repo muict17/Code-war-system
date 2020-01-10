@@ -1,5 +1,3 @@
-import createUserService from "../../services/users/create";
-
 import loginService from "../../services/authentication/login";
 
 describe("login ", () => {

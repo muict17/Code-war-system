@@ -12,8 +12,9 @@ const createdUserSql = `
     token_auth,
     student_id,
     username,
-    password)
-  VALUES ($1,$2,$3,$4,$5)
+    password,
+    verify_token)
+  VALUES ($1, $2, $3, $4, $5, $6)
   RETURNING *`;
 
 const checkUsernameSql = `
@@ -35,15 +36,17 @@ export default async (user: UserData): Promise<UserInfo> => {
     const passwordSalt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, passwordSalt);
     const tokenAuth = tokenAuthGenerator("user_xxxxxxxxxxxx");
+    const verifyEmailToken = tokenAuthGenerator("verify_xxxxxxxxxxxxxxxx");
     const userResult: QueryResult = await connection.query(createdUserSql, [
       roleId,
       tokenAuth,
       studentId,
       username,
-      hashPassword
+      hashPassword,
+      verifyEmailToken
     ]);
     connection.release(true);
     return mapToCamelCase(userResult.rows[0]);
   }
-  throw new Error("conflict username");
+  throw new Error("username or studentId already exists");
 };

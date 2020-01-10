@@ -27,6 +27,7 @@ CREATE TABLE users(
   password CHAR(60) NOT NULL,
   is_verified BOOLEAN DEFAULT FALSE,
   score INTEGER DEFAULT 0,
+  verify_token VARCHAR(64) DEFAULT NULL,
   create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -198,5 +199,7 @@ CREATE INDEX index_user_token ON public.users(token_auth);
 -- mock DATA
 INSERT INTO public.roles("name") VALUES ('user');
 INSERT INTO public.user_classes("icon_url", "name", "min_score", "max_score") VALUES ('', 'beginner', 0, 100);
-INSERT INTO public.users ("role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "create_at", "update_at") VALUES ('1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '0', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095');
+INSERT INTO public.users ("role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "create_at", "update_at","verify_token") VALUES ('1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '0', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095','verify_e0c316a8e17e');
 INSERT INTO public.competition_category ("category_id", "name", "description", "create_at", "update_at") VALUES ('1', 'test category', 'test description', '2020-01-08 14:27:53.668228', '2020-01-08 14:27:53.668228');
+INSERT INTO public.questions ("question_id", "name", "description", "score", "create_at", "update_at") VALUES ('1', 'new Test', 'waaaa', '100', '2020-01-10 04:12:23.087576', '2020-01-10 04:12:23.118');
+INSERT INTO public.answers ("answer_id", "question_id", "answer", "is_answer", "create_at", "update_at") VALUES ('5', '1', 'new Answer', 'f', '2020-01-10 04:12:26.499049', '2020-01-10 04:12:26.507');
