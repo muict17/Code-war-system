@@ -2,14 +2,20 @@
   <div class="register">
     <form>
       <h1>Register</h1>
+
+      <!-- Username Input -->
       <div class="input">
         <label>Username</label>
         <input v-model="username" required />
       </div>
+
+      <!-- Student ID input -->
       <div class="input">
         <label>Student ID</label>
         <input v-model="studentid" required />
       </div>
+
+      <!-- Email input -->
       <div class="input">
         <label>Email address</label>
         <input
@@ -20,26 +26,38 @@
           required
         />
       </div>
-      <div class="input">
+
+      <!-- Password Input -->
+      <div class="input form-group">
         <label>Password</label>
         <input
-          :class="{ 'is-error': isPasswordNotMatch }"
-          v-model="firstTypedPassword"
           type="password"
+          v-model.trim="$v.password.$model"
+          :class="{ 'is-error': $v.password.$error }"
           required
         />
       </div>
-      <div class="input">
+
+      <div class="error" v-if="!$v.password.minLength">
+        Password must have at least
+        {{ $v.password.$params.minLength.min }} letters.
+      </div>
+
+      <!-- Password validation input -->
+      <div class="input form-group">
         <label>Retype Password</label>
         <input
-          :class="{ 'is-error': isPasswordNotMatch }"
           type="password"
+          v-model.trim="$v.repeatPassword.$model"
+          :class="{ 'is-error': $v.repeatPassword.$error }"
           required
         />
       </div>
-      <div v-if="isPasswordNotMatch" class="error">
-        Your password don't match
+
+      <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+        Passwords must be matched as above.
       </div>
+
       <div class="button-container">
         <button>Submit</button>
       </div>
@@ -48,17 +66,26 @@
 </template>
 
 <script>
-// @todo add password validation
+import { required, sameAs, minLength } from "vuelidate/lib/validators";
+
 export default {
   data: function() {
     return {
       username: "",
       studentid: "",
       email: "",
-      firstTypedPassword: "",
-      actualPassword: "",
-      isPasswordNotMatch: false,
+      password: "",
+      repeatPassword: "",
     };
+  },
+  validations: {
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs("password"),
+    },
   },
 };
 </script>
