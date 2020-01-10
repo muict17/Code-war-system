@@ -5,24 +5,22 @@ export default {
   url: "/users/:userId",
   method: "DELETE",
   schema,
-  preHandler: async (req: any, res: any, done: any) => {
-    const isTokenValid = await req.authorization.authenticate(req, res);
+  preHandler: async (req: any, res: any) => {
+    req.userInfo = await req.authorization.authenticate(req.headers);
+    const isTokenValid = req.userInfo.isValid;
     const isRoleValid = req.authorization.verifyRole(req.userInfo, ["admin"]);
 
     if (isTokenValid && isRoleValid) {
-      done();
       return;
     }
 
     if (!isTokenValid) {
       res.status(401).send({ message: "Unauthorization" });
-      done();
       return;
     }
 
     if (!isRoleValid) {
       res.status(403).send({ message: "Insufficient Permission" });
-      done();
       return;
     }
   },
