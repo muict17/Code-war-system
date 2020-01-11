@@ -10,4 +10,5 @@ export interface LoginInfo {
 }
 export interface Response {
   jwt: string | undefined;
+  role: string | undefined;
 }
