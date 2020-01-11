@@ -11,7 +11,7 @@ export default {
     try {
       await deleteCategoryService(req.params.categoryId);
       req.logger.info(
-        `Competition Category: delete id ${req.params.categoryId}`
+        `Competition Category: deleted id ${req.params.categoryId}`
       );
       res.status(200).send({ message: "deleted" });
     } catch (e) {
