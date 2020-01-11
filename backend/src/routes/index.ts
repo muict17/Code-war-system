@@ -6,8 +6,10 @@ import userDeleteRoute from "./users/delete";
 import userGetByQueryRoute from "./users/get-query";
 import userVerifyRoute from "./users/verify-user";
 import loginRoute from "./authentication/login";
+import categoryCreateRoute from "./categories/create";
 
 export default [
+  categoryCreateRoute,
   loginRoute,
   userVerifyRoute,
   userGetByQueryRoute,

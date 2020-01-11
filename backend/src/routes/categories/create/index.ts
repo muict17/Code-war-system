@@ -28,6 +28,7 @@ export default {
     try {
       const { name, description } = req.body;
       const categoryInfo = await createCategoryService({ name, description });
+      req.logger.info(`Competition Category: create new category = ${name}`);
       res.status(200).send(categoryInfo);
     } catch (e) {
       req.logger.error(e);
