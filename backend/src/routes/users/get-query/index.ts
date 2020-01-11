@@ -1,19 +1,12 @@
 import getByQueryService from "../../../services/users/get-query";
 import schema from "./schema";
+import preHandler from "../../../global-hooks/verify-token";
 
 export default {
   url: "/users",
   method: "GET",
   schema,
-  preHandler: async (req: any, res: any, done: Function) => {
-    const isValidToken = await req.authorization.authenticate(req, res);
-    if (isValidToken) {
-      done();
-      return;
-    }
-
-    res.status(401).send({ message: "Unauthorization" });
-  },
+  preHandler,
   handler: async (req: any, res: any) => {
     try {
       const result = await getByQueryService(req.query);

@@ -1,29 +1,12 @@
 import schema from "./schema";
 import deleteCategoryService from "../../../services/competition-categories/delete";
+import preHandler from "../../../global-hooks/verify-admin";
 
 export default {
   url: "/competition-categories/:categoryId",
   method: "DELETE",
   schema,
-  preHandler: async (req: any, res: any) => {
-    req.userInfo = await req.authorization.authenticate(req.headers);
-    const isTokenValid = req.userInfo.isValid;
-    const isRoleValid = req.authorization.verifyRole(req.userInfo, ["admin"]);
-
-    if (isTokenValid && isRoleValid) {
-      return;
-    }
-
-    if (!isTokenValid) {
-      res.status(401).send({ message: "Unauthorization" });
-      return;
-    }
-
-    if (!isRoleValid) {
-      res.status(403).send({ message: "Insufficient Permission" });
-      return;
-    }
-  },
+  preHandler,
   handler: async (req: any, res: any) => {
     try {
       await deleteCategoryService(req.params.categoryId);
@@ -33,7 +16,11 @@ export default {
       res.status(200).send({ message: "deleted" });
     } catch (e) {
       req.logger.error(e);
-      res.status(500).send({ message: "Service Unavailable" });
+      const { code, message } = req.createErrorResponse(
+        "CompetitionCategory",
+        e.message
+      );
+      res.status(code).send({ message });
     }
   }
 };
