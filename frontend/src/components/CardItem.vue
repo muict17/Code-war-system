@@ -1,16 +1,34 @@
 <template>
-  <div class="item">
+  <div class="item" @click="isModalOpen = true">
     <div class="name">{{ assignmentName }}</div>
     <div class="score">Max Score: {{ score }} pt</div>
+    <Modal
+      v-if="isModalOpen"
+      :assignmentName="assignmentName"
+      :description="description"
+      :score="score"
+      @close="isModalOpen = false"
+    />
   </div>
 </template>
 
 <script>
+import Modal from "./CardModal";
+
 export default {
   name: "CardItem",
   props: {
     assignmentName: String,
+    description: String,
     score: Number,
+  },
+  data: function() {
+    return {
+      isModalOpen: false,
+    };
+  },
+  components: {
+    Modal,
   },
 };
 </script>
