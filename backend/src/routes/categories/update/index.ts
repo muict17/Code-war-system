@@ -5,4 +5,5 @@ export default {
   url: "/competition-categories/:categoryId",
   method: "PATCH",
   schema
+  // preHandler
 };

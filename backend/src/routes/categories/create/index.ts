@@ -1,12 +1,11 @@
 import createCategoryService from "../../../services/competition-categories/create";
 import schema from "./schema";
-import preHandler from "../../../global-hooks/verify-admin";
-
+import preHandler from "../../../global-hooks/verify-roles";
 export default {
   url: "/competition-categories",
   method: "POST",
   schema,
-  preHandler,
+  preHandler: preHandler(["admin"]),
   handler: async (req: any, res: any) => {
     try {
       const { name, description } = req.body;

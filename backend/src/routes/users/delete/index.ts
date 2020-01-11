@@ -1,12 +1,12 @@
 import deleteUserService from "../../../services/users/delete";
 import schema from "./schema";
-import preHandler from "../../../global-hooks/verify-admin";
+import preHandler from "../../../global-hooks/verify-roles";
 
 export default {
   url: "/users/:userId",
   method: "DELETE",
   schema,
-  preHandler,
+  preHandler: preHandler(["admin"]),
   handler: async (req: any, res: any) => {
     try {
       await deleteUserService(req.params.userId);

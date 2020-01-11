@@ -1,12 +1,12 @@
 import schema from "./schema";
 import deleteCategoryService from "../../../services/competition-categories/delete";
-import preHandler from "../../../global-hooks/verify-admin";
+import preHandler from "../../../global-hooks/verify-roles";
 
 export default {
   url: "/competition-categories/:categoryId",
   method: "DELETE",
   schema,
-  preHandler,
+  preHandler: preHandler(["admin"]),
   handler: async (req: any, res: any) => {
     try {
       await deleteCategoryService(req.params.categoryId);

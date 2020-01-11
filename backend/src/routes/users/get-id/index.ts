@@ -1,12 +1,12 @@
 import schema from "./schema";
 import getUserByIdService from "../../../services/users/get-id";
-import preHandler from "../../../global-hooks/verify-admin-or-owner";
+import preHandler from "../../../global-hooks/verify-roles-or-owner";
 
 export default {
   url: "/users/:userId",
   method: "GET",
   schema,
-  preHandler,
+  preHandler: preHandler(["admin"]),
   handler: async (req: any, res: any) => {
     try {
       const result = await getUserByIdService(req.params.userId);
