@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <Navbar />
-    <img alt="Vue logo" src="../assets/logo.png" />
-  </div>
+  <Container>
+    <div class="home">
+      <Navbar />
+      <Title name="Today's assignment" />
+      <Cards />
+    </div>
+  </Container>
 </template>
 
 <script>
 // @ is an alias to /src
+import Container from "@/components/Container.vue";
 import Navbar from "@/components/Navbar.vue";
+import Title from "@/components/Title.vue";
+import Cards from "@/components/Cards.vue";
 
 export default {
-  name: "navbar",
+  name: "home",
   components: {
+    Container,
     Navbar,
+    Cards,
+    Title,
   },
 };
 </script>
