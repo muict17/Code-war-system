@@ -29,7 +29,7 @@ export default {
   align-items: center
 
 .navbar
-  margin: 20px 120px
+  margin: 20px 0
   justify-content: space-between
 
 .menus > .item
