@@ -8,8 +8,10 @@ import userVerifyRoute from "./users/verify-user";
 import loginRoute from "./authentication/login";
 import categoryCreateRoute from "./categories/create";
 import categoryDeleteRoute from "./categories/delete";
+import categoryUpdateRoute from "./categories/update";
 
 export default [
+  categoryUpdateRoute,
   categoryDeleteRoute,
   categoryCreateRoute,
   loginRoute,

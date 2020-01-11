@@ -1,18 +1,12 @@
 import schema from "./schema";
 import updateUserService from "../../../services/users/update";
+import preHandler from "../../../global-hooks/verify-owner";
 
 export default {
   url: "/users",
   method: "PATCH",
   schema,
-  preHandler: async (req: any, res: any, done: any) => {
-    const isValid = await req.authorization.authenticate(req, res);
-    if (isValid) {
-      done();
-      return;
-    }
-    res.status(403).send({ message: "Insufficient Permission" });
-  },
+  preHandler,
   handler: async (req: any, res: any) => {
     try {
       const userData = {
