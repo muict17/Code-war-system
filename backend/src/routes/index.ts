@@ -9,8 +9,10 @@ import loginRoute from "./authentication/login";
 import categoryCreateRoute from "./categories/create";
 import categoryDeleteRoute from "./categories/delete";
 import categoryUpdateRoute from "./categories/update";
+import categoryGetByIdRoute from "./categories/get-id";
 
 export default [
+  categoryGetByIdRoute,
   categoryUpdateRoute,
   categoryDeleteRoute,
   categoryCreateRoute,
