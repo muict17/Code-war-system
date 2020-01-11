@@ -198,8 +198,13 @@ CREATE INDEX index_user_token ON public.users(token_auth);
 
 -- mock DATA
 INSERT INTO public.roles("name") VALUES ('user');
+INSERT INTO "public"."roles" ("name", "create_at", "update_at") VALUES ('admin', '2020-01-11 04:43:38.086789', '2020-01-11 04:43:38.086789');
 INSERT INTO public.user_classes("icon_url", "name", "min_score", "max_score") VALUES ('', 'beginner', 0, 100);
 INSERT INTO public.users ("role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "create_at", "update_at","verify_token") VALUES ('1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '0', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095','verify_e0c316a8e17e');
 INSERT INTO public.competition_category ("category_id", "name", "description", "create_at", "update_at") VALUES ('1', 'test category', 'test description', '2020-01-08 14:27:53.668228', '2020-01-08 14:27:53.668228');
-INSERT INTO public.questions ("question_id", "name", "description", "score", "create_at", "update_at") VALUES ('1', 'new Test', 'waaaa', '100', '2020-01-10 04:12:23.087576', '2020-01-10 04:12:23.118');
-INSERT INTO public.answers ("answer_id", "question_id", "answer", "is_answer", "create_at", "update_at") VALUES ('5', '1', 'new Answer', 'f', '2020-01-10 04:12:26.499049', '2020-01-10 04:12:26.507');
+INSERT INTO "public"."questions" ("name", "description", "score", "create_at", "update_at") VALUES ('test Question', 'waaaa', '100', '2020-01-10 04:12:23.087576', '2020-01-10 04:12:23.118');
+INSERT INTO "public"."answers" ("question_id", "answer", "is_answer", "create_at", "update_at") VALUES ('1', 'test', 't', '2020-01-10 04:23:31.782218', '2020-01-10 04:23:31.782218');
+INSERT INTO "public"."answers" ("question_id", "answer", "is_answer", "create_at", "update_at") VALUES ('1', 'test1', 'f', '2020-01-10 04:23:31.801361', '2020-01-10 04:23:31.801361');
+INSERT INTO "public"."competitions" ("competition_id", "category_id", "name", "description", "is_open", "start_date", "end_date", "create_at", "update_at") VALUES ('1', '1', 'new Competition', 'new Description', 't', '2020-01-10 04:23:29.433', '2020-01-10 04:23:29.433', '2020-01-10 04:23:29.399925', '2020-01-10 04:23:29.468');
+INSERT INTO "public"."users" ("user_id", "role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "verify_token", "create_at", "update_at") VALUES ('2', '1', NULL, 'user_e0c316a8e17e', '50', 'user1f52', '$2b$10$pKG6JsmIQd.0URz3NTRApOeo61aYPNMP6yZxAmFYSf1qA5GVSHDSO', 'f', '700', 'verify_e0c316a8e17e', '2020-01-08 07:12:57.48095', '2020-01-08 07:12:57.48095');
+INSERT INTO "public"."users" ("user_id", "role_id", "class_id", "token_auth", "student_id", "username", "password", "is_verified", "score", "verify_token", "create_at", "update_at") VALUES ('3', '2', NULL, 'user_a908a9fccd2f', '123', 'turing_user', '$2b$10$SSTF5sizBgnxIPGB3fs0JOFv3r.AxD1ZXNqnDL4fwt7SwzraaWRTy', 't', '0', NULL, '2020-01-10 07:35:41.201149', '2020-01-10 09:52:45.911');
