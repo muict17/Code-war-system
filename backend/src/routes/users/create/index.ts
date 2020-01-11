@@ -1,6 +1,5 @@
 import createUserService from "../../../services/users/create";
 import schema from "./schema";
-import createErrorResponse from "../../../utils/helpers/create-error-message";
 import sendVerifyEmailService from "../../../services/mailers/send-user-token";
 
 export default {
@@ -19,8 +18,8 @@ export default {
       res.status(200).send(result);
     } catch (e) {
       req.logger.error(e);
-      const { code, message } = createErrorResponse("User", e.message);
-      res.status(code).send({ msg: message });
+      const { code, message } = req.createErrorResponse("User", e.message);
+      res.status(code).send({ message });
     }
   }
 };

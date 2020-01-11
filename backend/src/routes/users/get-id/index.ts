@@ -1,28 +1,12 @@
 import schema from "./schema";
 import getUserByIdService from "../../../services/users/get-id";
+import preHandler from "../../../global-hooks/verify-roles-or-owner";
 
 export default {
   url: "/users/:userId",
   method: "GET",
   schema,
-  preHandler: async (req: any, res: any) => {
-    req.userInfo = await req.authorization.authenticate(req.headers);
-    const isTokenValid = req.userInfo.isValid;
-    const ownerKey = req.params.userId;
-    const isOwner = req.authorization.verifyOwner(req.userInfo, ownerKey);
-    const isRole = req.authorization.verifyRole(req.userInfo, ["admin"]);
-
-    if (isOwner || isRole) {
-      return;
-    }
-
-    if (!isTokenValid) {
-      res.status(401).send({ message: "Unauthorization" });
-      return;
-    }
-
-    res.status(403).send({ message: "Insufficient Permission" });
-  },
+  preHandler: preHandler(["admin"]),
   handler: async (req: any, res: any) => {
     try {
       const result = await getUserByIdService(req.params.userId);

@@ -8,6 +8,7 @@ const getUserSql = `
     user_id,
     token_auth,
     password,
+    is_verified AS isverified,
     roles.name AS rolename
   FROM users
   INNER JOIN roles ON users.role_id = roles.role_id
@@ -25,13 +26,19 @@ export default async (loginInfo: LoginData): Promise<Response> => {
     const verifyPassword = await bcrypt.compare(password, userInfo.password);
 
     if (verifyPassword) {
+      const isVerifiedUser = userInfo.isverified;
+      if (!isVerifiedUser) {
+        throw new Error("user is not verified");
+      }
+
       const jwtToken = await jwt.sign({
         userId: userInfo.user_id,
         tokenAuth: userInfo.token_auth,
         role: userInfo.rolename
       });
       return {
-        jwt: jwtToken
+        jwt: jwtToken,
+        role: userInfo.rolename
       };
     }
 
