@@ -1,14 +1,16 @@
 <template>
-  <div class="item" @click="isModalOpen = true">
-    <div class="name">{{ assignmentName }}</div>
-    <div class="score">Max Score: {{ score }} pt</div>
+  <div>
     <Modal
       v-if="isModalOpen"
       :assignmentName="assignmentName"
       :description="description"
       :score="score"
-      @close="isModalOpen = false"
+      @close="onChangeStateModal"
     />
+    <div class="item" @click="onChangeStateModal">
+      <div class="name">{{ assignmentName }}</div>
+      <div class="score">Max Score: {{ score }} pt</div>
+    </div>
   </div>
 </template>
 
@@ -27,6 +29,11 @@ export default {
       isModalOpen: false,
     };
   },
+  methods: {
+    onChangeStateModal() {
+      this.isModalOpen = !this.isModalOpen;
+    },
+  },
   components: {
     Modal,
   },
@@ -40,6 +47,7 @@ export default {
   background: #4E5154
   color: #ACAEAF
   padding: 30px
+  cursor: pointer
 
 .name
   font-size: 24px
