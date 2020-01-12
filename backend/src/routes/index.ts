@@ -10,8 +10,10 @@ import categoryCreateRoute from "./categories/create";
 import categoryDeleteRoute from "./categories/delete";
 import categoryUpdateRoute from "./categories/update";
 import categoryGetByIdRoute from "./categories/get-id";
+import categoryGetByQueryRoute from "./categories/get-query";
 
 export default [
+  categoryGetByQueryRoute,
   categoryGetByIdRoute,
   categoryUpdateRoute,
   categoryDeleteRoute,
