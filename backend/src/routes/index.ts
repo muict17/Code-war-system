@@ -13,8 +13,10 @@ import categoryGetByIdRoute from "./categories/get-id";
 import categoryGetByQueryRoute from "./categories/get-query";
 import competitionCreateRoute from "./competitions/create";
 import competitionGetyByIdRoute from "./competitions/get-id";
+import competitionDeleteRoute from "./competitions/delete";
 
 export default [
+  competitionDeleteRoute,
   competitionGetyByIdRoute,
   competitionCreateRoute,
   categoryGetByQueryRoute,
