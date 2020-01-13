@@ -17,7 +17,7 @@ export default {
     } catch (e) {
       req.logger.error(e);
       const { code, message } = req.createErrorResponse(
-        "Comepetition",
+        "Competition",
         e.message
       );
 
