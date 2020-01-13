@@ -1,10 +1,10 @@
 import User from "./users";
 import Authentication from "./authentication";
 import CompetitionCategory from "./competition-categories";
-import Comepetition from "./competitions";
+import Competition from "./competitions";
 
 export default {
-  Comepetition,
+  Competition,
   User,
   Authentication,
   CompetitionCategory
