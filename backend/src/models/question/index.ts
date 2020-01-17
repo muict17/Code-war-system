@@ -48,14 +48,15 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     if (query.name) {
       const sql = `${baseSelectSql} WHERE name LIKE %L`;
       this.sql = format(sql, name);
+      return this;
     }
+
     const sql = `${baseSelectSql} LIMIT %s OFFSET %s`;
     this.sql = format(sql, Number(limit), Number(offset));
-
     return this;
   }
   public getByQuery(query: QueryString) {
-    const { name, limit, offset } = query;
+    const { name, limit, offset, questionId } = query;
     let sql = `
     ${baseSelectJoinSql},
     answers.answer_id  AS answers_answer_id ,
@@ -66,11 +67,18 @@ export default class QuestionModel extends BaseDataBase<QuestionInfo> {
     answers.update_at  AS answers_update_at
     FROM (SELECT * FROM questions LIMIT %s OFFSET %s) AS questions
     LEFT JOIN answers ON questions.question_id = answers.question_id `;
-    if (query.name) {
+    if (name) {
       sql = `${sql} WHERE questions.name LIKE %L`;
       this.sql = format(sql, Number(limit), Number(offset), name);
       return this;
     }
+
+    if (questionId) {
+      sql = `${sql} WHERE questions.question_id = %s`;
+      this.sql = format(sql, Number(questionId));
+      return this;
+    }
+
     this.sql = format(sql, Number(limit), Number(offset));
     return this;
   }

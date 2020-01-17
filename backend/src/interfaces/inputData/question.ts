@@ -8,5 +8,6 @@ export interface QueryString {
   limit: number;
   offset: number;
   name?: string;
+  questionId?: number;
   isJoin?: boolean;
 }
